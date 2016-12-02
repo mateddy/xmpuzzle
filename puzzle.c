@@ -19,16 +19,19 @@ int main() {
   y = j;
 
   printf("l = 16;\ne = 0.16;\ng = 3;\n\n");
-  printf("module a(i,j,k) { translate([i*l+e,j*l+e,k*l+e]) cube([l-2*e,l-2*e,l-2*e]); }\n");
-  printf("module bx(i,j,k) { translate([i*l-2*e,j*l+e,k*l+e]) cube([4*e,l-2*e,l-2*e]); }\n");
-  printf("module by(i,j,k) { translate([i*l+e,j*l-2*e,k*l+e]) cube([l-2*e,4*e,l-2*e]); }\n");
-  printf("module bz(i,j,k) { translate([i*l+e,j*l+e,k*l-2*e]) cube([l-2*e,l-2*e,4*e]); }\n");
-  printf("module cx(i,j,k) { translate([i*l+e,j*l-2*e,k*l-2*e]) cube([l-2*e,4*e,4*e]); }\n");
-  printf("module cy(i,j,k) { translate([i*l-2*e,j*l+e,k*l-2*e]) cube([4*e,l-2*e,4*e]); }\n");
-  printf("module cz(i,j,k) { translate([i*l-2*e,j*l-2*e,k*l+e]) cube([4*e,4*e,l-2*e]); }\n");
-  printf("module d(i,j,k) { translate([i*l-2*e,j*l-2*e,k*l-2*e]) cube([4*e,4*e,4*e]); }\n\n");
+  printf("module m(v,w) { translate(v*l+[e,e,e]-3*e*w) cube((l-2*e)*[1,1,1]+(6*e-l)*w); }\n\n");
+
+  printf("module a(i,j,k) { m([i,j,k],[0,0,0]); }\n");
+  printf("module bx(i,j,k) { m([i,j,k],[1,0,0]); }\n");
+  printf("module by(i,j,k) { m([i,j,k],[0,1,0]); }\n");
+  printf("module bz(i,j,k) { m([i,j,k],[0,0,1]); }\n");
+  printf("module cx(i,j,k) { m([i,j,k],[0,1,1]); }\n");
+  printf("module cy(i,j,k) { m([i,j,k],[1,0,1]); }\n");
+  printf("module cz(i,j,k) { m([i,j,k],[1,1,0]); }\n");
+  printf("module d(i,j,k) { m([i,j,k],[1,1,1]); }\n\n");
+
   printf("module p() {\n");
-  
+
   for (k = 0; k < z; ++k)
     for (j = 0; j < y; ++j)
       for (i = 0; i < x; ++i)
@@ -49,6 +52,6 @@ int main() {
 	      printf("  cx(%d,%d,%d);\n", i, y-1-j, k);
 	  }
 	  if (k>0 && p[j][k-1][i] != '.') printf("  bz(%d,%d,%d);\n", i, y-1-j, k);
-	} 
+	}
   printf("}\np();\n");
 }

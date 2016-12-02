@@ -2,14 +2,16 @@ l = 16;
 e = 0.16;
 g = 3;
 
-module a(i,j,k) { translate([i*l+e,j*l+e,k*l+e]) cube([l-2*e,l-2*e,l-2*e]); }
-module bx(i,j,k) { translate([i*l-2*e,j*l+e,k*l+e]) cube([4*e,l-2*e,l-2*e]); }
-module by(i,j,k) { translate([i*l+e,j*l-2*e,k*l+e]) cube([l-2*e,4*e,l-2*e]); }
-module bz(i,j,k) { translate([i*l+e,j*l+e,k*l-2*e]) cube([l-2*e,l-2*e,4*e]); }
-module cx(i,j,k) { translate([i*l+e,j*l-2*e,k*l-2*e]) cube([l-2*e,4*e,4*e]); }
-module cy(i,j,k) { translate([i*l-2*e,j*l+e,k*l-2*e]) cube([4*e,l-2*e,4*e]); }
-module cz(i,j,k) { translate([i*l-2*e,j*l-2*e,k*l+e]) cube([4*e,4*e,l-2*e]); }
-module d(i,j,k) { translate([i*l-2*e,j*l-2*e,k*l-2*e]) cube([4*e,4*e,4*e]); }
+module m(v,w) { translate(v*l+[e,e,e]-3*e*w) cube((l-2*e)*[1,1,1]+(6*e-l)*w); }
+
+module a(i,j,k) { m([i,j,k],[0,0,0]); }
+module bx(i,j,k) { m([i,j,k],[1,0,0]); }
+module by(i,j,k) { m([i,j,k],[0,1,0]); }
+module bz(i,j,k) { m([i,j,k],[0,0,1]); }
+module cx(i,j,k) { m([i,j,k],[0,1,1]); }
+module cy(i,j,k) { m([i,j,k],[1,0,1]); }
+module cz(i,j,k) { m([i,j,k],[1,1,0]); }
+module d(i,j,k) { m([i,j,k],[1,1,1]); }
 
 module p() {
   a(0,3,0);
